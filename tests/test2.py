@@ -18,7 +18,7 @@ class Calculator:
 
 		return self.num1 / self.num2
 
-	def multiply:
+	def multiply(self):
 
 		return self.num1 + self.num2
 
