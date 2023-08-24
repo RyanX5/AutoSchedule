@@ -20,13 +20,13 @@ class Calculator:
 
 	def multiply(self):
 
-		return self.num1 + self.num2
+		return self.num1 * self.num2
 
 	def min(self):
 
-		minNum = num1
-		if(minNum > num2):
-			minNum = num2
+		minNum = self.num1
+		if(minNum > self.num2):
+			minNum = self.num2
 
 		return minNum
 
