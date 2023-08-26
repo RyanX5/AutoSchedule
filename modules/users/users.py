@@ -3,10 +3,10 @@ import os
 
 class Users:
 
-    def __init__(self, name, email, works) -> None:
+    def __init__(self, name, email) -> None:
         self.name = name
         self.email = email
-        self.works = works
+        self.works = []
         self.FILENAME = "users.csv"
         self.add_to_file()
 
@@ -19,7 +19,7 @@ class Users:
         data = [self.name, self.email, self.works]
 
         if os.path.exists(self.FILENAME):
-            with open(self.FILENAME, 'w') as file:
+            with open(self.FILENAME, 'a', newline="") as file:
                 # file.write(self.name + "," + self.email + ",")
                 
                 # for work in self.works:
@@ -28,7 +28,7 @@ class Users:
                     csvwriter = csv.writer(file)
                     csvwriter.writerow(data)
         else:
-            with open(self.FILENAME, 'w') as file:
+            with open(self.FILENAME, 'w',newline="") as file:
                 csvwriter = csv.writer(file)
                 csvwriter.writerow(header)
                 csvwriter.writerow(data)
@@ -36,10 +36,8 @@ class Users:
     def add_work(self, work):
         self.works.append(work)
 
-
-works = ["Cleanning the dishes", "Cooking"]
-user = Users("Swoyam", "tha@gmail.com", works)
-
+user1 = Users("Swoyam", "tha@gmail.com")
+user2 = Users("Rohan", "123@gmail.com")
 
 
 
