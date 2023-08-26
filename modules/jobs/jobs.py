@@ -11,14 +11,14 @@ import os.path
 
 class Jobs:
 
-	def __init__(self, name, duration, frequency):
+	def __init__(self):
 
-		self.name = name
-		self.duration = duration
-		self.frequency = frequency
+		# self.name = name
+		# self.duration = duration
+		# self.frequency = frequency
 		self.FILENAME = "jobs.csv"
 
-	def add_jobs(self):
+	def add_jobs(self, name, duration, frequency):
 
 		data = [
 			[self.name, self.duration, self.frequency]
@@ -45,3 +45,23 @@ class Jobs:
 		return done
 
 
+	def assign_jobs(self, name, userName):
+
+		# access users.csv file
+		# look for name == row['Name']
+		# modify the row['work']
+
+
+		with open('../users/users.csv', 'r') as csvfile:
+
+			reader = csv.DictReader(csvfile)
+
+			for row in reader:
+
+				print(row)
+
+
+
+
+test = Jobs()
+test.assign_jobs("Rohan", "Laundry")
