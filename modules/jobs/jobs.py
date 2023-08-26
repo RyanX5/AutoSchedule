@@ -80,20 +80,32 @@ class Jobs:
 	def generate_data(self, workName, userName):
 
 		data = []
+
+		# Checks if the work exists in the database
 		if self.work_exists(workName):
+			# Opens the users.csv file
 			with open('../users/users.csv', 'r') as csvfile:
 
 				reader = csv.DictReader(csvfile)
+
 				for row in reader:
+					# Goes through each row and checks if the names match
 					if userName == row['Name']:
 						
+						# Converts the "Works" string value ("[]") to a list
 						li = ast.literal_eval(row['Works'])
+
+						# Appends the given work name to the list
 						li.append(workName)
 
+						# Sets the "Works" value of the row to a stringified list again
 						row['Works'] = str(li)
 
+					# Appends all the row values in the data list, accumulating changes	
 					data.append(row)
+
 		else:
+			# If work not found in the database
 			self.prompt_no_work()
 
 		return data
