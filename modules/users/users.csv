@@ -1,3 +1,3 @@
 Name,Email,Works
-Swoyam,tha@gmail.com,['Laundry']
-Rohan,123@gmail.com,['Laundry']
+Swoyam,swoyam@gmail.com,"['Cooking', 'Laundry']"
+Rohan,rohan@gmail.com,['Dishwashing']

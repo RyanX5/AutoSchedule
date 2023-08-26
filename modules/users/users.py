@@ -7,7 +7,7 @@ class Users:
         self.name = name
         self.email = email
         self.works = []
-        self.FILENAME = "users.csv"
+        self.FILENAME = "./modules/users/users.csv"
         self.add_to_file()
 
     # def __init__(self, name, email) -> None:
@@ -36,8 +36,6 @@ class Users:
     def add_work(self, work):
         self.works.append(work)
 
-user1 = Users("Swoyam", "tha@gmail.com")
-user2 = Users("Rohan", "123@gmail.com")
 
 
 

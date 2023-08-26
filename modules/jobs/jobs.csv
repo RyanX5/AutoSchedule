@@ -1,2 +1,4 @@
 Name,Duration,Frequency
-Laundry,30m,daily
+Cooking,30 mins,2
+Laundry,5 mins,1
+Dishwashing,15 mins,1

@@ -14,7 +14,8 @@ class Jobs:
 
 	def __init__(self):
 
-		self.FILENAME = "jobs.csv"
+		self.FILENAME = "./modules/jobs/jobs.csv"
+		self.FILENAME_USERS = "./modules/users/users.csv"
 
 
 
@@ -84,7 +85,7 @@ class Jobs:
 		# Checks if the work exists in the database
 		if self.work_exists(workName):
 			# Opens the users.csv file
-			with open('../users/users.csv', 'r') as csvfile:
+			with open(self.FILENAME_USERS, 'r') as csvfile:
 
 				reader = csv.DictReader(csvfile)
 
@@ -122,7 +123,7 @@ class Jobs:
 
 	def modify_data(self, data):
 
-		with open('../users/users.csv', 'w') as csvfile:
+		with open(self.FILENAME_USERS, 'w') as csvfile:
 			fieldnames = ["Name", "Email", "Works"]
 			writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 			writer.writeheader()
@@ -144,7 +145,7 @@ class Jobs:
 
 		exists = False
 
-		with open('./jobs.csv', 'r') as csvfile:
+		with open(self.FILENAME, 'r') as csvfile:
 
 			reader = csv.DictReader(csvfile)
 
@@ -166,7 +167,7 @@ class Jobs:
 
 		exists = False
 
-		with open('../users/users.csv', 'r') as csvfile:
+		with open(self.FILENAME_USERS, 'r') as csvfile:
 
 			reader = csv.DictReader(csvfile)
 
@@ -204,8 +205,3 @@ class Jobs:
 		print("No user found")
 
 
-
-
-
-test = Jobs()
-test.assign_jobs("Laundry", "Swoyam")
