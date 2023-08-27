@@ -6,12 +6,24 @@ def main():
 	jobObj = jobs.Jobs()
 	userObj = users.Users()
 
-	userObj.add_user("Rohan", "rohaniam777@gmail.com")
+	# userObj.add_user("Rohan", "rohaniam777@gmail.com")
 
-	if(jobObj.add_jobs("Cooking", "30 mins", "2")):
-		print("Successfully added.")
-	else:
-		print("Error")
+	# if(jobObj.add_jobs("Cooking", "30 mins", "2")):
+	# 	print("Successfully added.")
+	# else:
+	# 	print("Error")
+
+	# jobObj.assign_jobs("Laundry", "Rohan")
+	# jobObj.assign_jobs("Laundry", "Rohan")
+
+	jobObj.delete_jobs("Laundry")
+
+	# if(jobObj.add_jobs("Laundry", "30 mins", "2")):
+	# 	print("Successfully added.")
+	# else:
+	# 	print("Error")
+
+	# print(userObj.delete_user("Rohan"))
 
 	# if(jobObj.add_jobs("Laundry", "5 mins", "1")):
 	# 	print("Successfully added.")

@@ -251,6 +251,8 @@ class Jobs:
 		# if yes, get its ['works']
 		# list it, remove the element
 		# stringify it, add it again
+
+
 		if self.work_exists(name):
 			data = []
 			with open(self.FILENAME, 'r') as csvfile:
@@ -268,6 +270,8 @@ class Jobs:
 				writer = csv.DictWriter(csvf, fieldnames=headers)
 				writer.writeheader()
 				writer.writerows(data)
+
+			self.delete_work_from_user(name)
 
 			print("Successfully deleted job: " + name)
 			self.list_jobs()
@@ -289,6 +293,48 @@ class Jobs:
 
 				print(row)
 
+
+
+	def delete_work_from_user(self, name):
+		
+		data = []
+		users = []
+
+		with open(self.FILENAME_USERS, 'r') as csvfile:
+			reader = csv.DictReader(csvfile)
+
+			for row in reader:
+
+				if name in row['Works']:
+					users.append(row['Name'])
+
+					li = ast.literal_eval(row['Works'])
+					li = [x for x in li if x!=name]
+					row['Works'] = str(li)
+
+				data.append(row)
+
+
+		with open(self.FILENAME_USERS, 'w') as csvf:
+
+			headers = ["Name", "Email", "Works"]
+
+			writer = csv.DictWriter(csvf, fieldnames=headers)
+
+			writer.writeheader()
+			writer.writerows(data)
+
+		for names in users:
+
+			print("Deleted work: " + name + " from " + names)
+
+
+
+
+
+# "ROhan", "asdasd", "['Cooking', Laundry, Laundry]"
+# "ROhan", "asdasd", "['Cooking']"
+# "ROhaasdn", "asdasasdd", "['Cooking', Laundry]"
 
 
 
