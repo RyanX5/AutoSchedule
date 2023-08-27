@@ -1,22 +1,21 @@
 import csv
 import os
+from ..jobs import jobs
 
 class Users:
 
-    def __init__(self, name, email) -> None:
-        self.name = name
-        self.email = email
-        self.works = []
+    def __init__(self) -> None:
         self.FILENAME = "./modules/users/users.csv"
-        self.add_to_file()
 
-    # def __init__(self, name, email) -> None:
-    #     self.name = name
-    #     self.email = email
+    def add_user(self, name, email):
+        works = []
+        self.add_to_file(name, email, works)
 
-    def add_to_file(self):
+
+
+    def add_to_file(self, name, email, works):
         header = ["Name", "Email", "Works"]
-        data = [self.name, self.email, self.works]
+        data = [name, email, works]
 
         if os.path.exists(self.FILENAME):
             with open(self.FILENAME, 'a', newline="") as file:
@@ -35,6 +34,37 @@ class Users:
 
     def add_work(self, work):
         self.works.append(work)
+
+    '''
+		Return True when the user is deleted and False if the user doesn't exist
+	'''
+    def delete_user(self, name):
+        if not jobs.user_exists(name):
+            return False
+		    
+        data = []
+        
+        with open(self.FILENAME, 'r') as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                if name != reader['Name']:
+                    data.append(row)
+
+        header = ['Name', 'Email', 'Works']
+
+        if os.path.exists(self.FILENAME):
+            with open(self.FILENAME_USERS, 'a', newline="") as file:  
+                csvwriter = csv.writer(file)
+                csvwriter.writerows(data)
+        else:
+            with open(self.FILENAME, 'w',newline="") as file:
+                csvwriter = csv.writer(file)
+                csvwriter.writerow(header)
+                csvwriter.writerows(data)
+
+
+
 
 
 
