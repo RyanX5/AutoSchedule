@@ -24,30 +24,36 @@ class Jobs:
 
 	'''
 	def add_jobs(self, name, duration, frequency):
+		if not self.work_exists:
 
-		data = [
-			[name, duration, frequency]
-		]
+			data = [
+				[name, duration, frequency]
+			]
 
-		done = False
+			
 
-		if not os.path.exists(self.FILENAME):
+			if not os.path.exists(self.FILENAME):
 
-			with open(self.FILENAME, 'w', newline='') as jobscsv:
-				csv_writer = csv.writer(jobscsv)
-				csv_writer.writerow(["Name", "Duration", "Frequency"])
-				csv_writer.writerows(data)
-				done = True
+				with open(self.FILENAME, 'w', newline='') as jobscsv:
+					csv_writer = csv.writer(jobscsv)
+					csv_writer.writerow(["Name", "Duration", "Frequency"])
+					csv_writer.writerows(data)
+					done = True
+
+			else:
+
+				with open(self.FILENAME, 'a', newline='') as jobscsv:
+					csv_writer = csv.writer(jobscsv)
+					csv_writer.writerows(data)
+					
+
+			
+			print("Successfully added job: " + name)
 
 		else:
 
-			with open(self.FILENAME, 'a', newline='') as jobscsv:
-				csv_writer = csv.writer(jobscsv)
-				csv_writer.writerows(data)
-				done = True
-
-		
-		return done
+			print("Work already exists: " + name + '\n')
+			self.list_jobs()
 
 
 
@@ -61,13 +67,13 @@ class Jobs:
 		data = self.generate_data(workName, userName)
 
 		if data != []:
-			if self.user_exists(userName):
+			if self.user_exists(userName, "./modules/users/users.csv"):
 				self.modify_data(data)
 			else:
 				self.prompt_no_user()
 
 		else:
-			if not self.user_exists(userName):
+			if not self.user_exists(userName, "./modules/users/users.csv"):
 				self.prompt_no_user()
 
 
@@ -163,11 +169,13 @@ class Jobs:
 		Returns a boolean specifying if the given user name exists in the database
 
 	'''
-	def user_exists(self, name):
+
+	@staticmethod
+	def user_exists(name, fileLocation):
 
 		exists = False
 
-		with open(self.FILENAME_USERS, 'r') as csvfile:
+		with open(fileLocation, 'r') as csvfile:
 
 			reader = csv.DictReader(csvfile)
 
@@ -203,5 +211,70 @@ class Jobs:
 	def prompt_no_user(self):
 
 		print("No user found")
+
+
+
+	'''
+		PRIVATE
+
+		TODO: add action after no work is found in the database, preferably ask to create a new user
+
+
+	'''
+
+	def delete_jobs(self, name):
+
+		# modify jobs csv
+		# go to user
+		# check if the user has the job
+		# if yes, get its ['works']
+		# list it, remove the element
+		# stringify it, add it again
+		if self.work_exists():
+			data = []
+			with open(self.FILENAME, 'r') as csvfile:
+				reader = csv.DictReader(csvfile)
+
+				for row in reader:
+
+					if row['Name'] != name:
+						data.append(row)
+
+
+			with open(self.FILENAME, 'w') as csvf:
+				
+				headers = ["Name", "Duration", "Frequency"]
+				writer = csv.DictWriter(csvf, fieldnames=headers)
+				writer.writeheader()
+				writer.writerows(data)
+
+			print("Successfully deleted job: " + name)
+
+		else:
+
+			self.prompt_no_work()
+
+
+
+
+	def list_jobs(self):
+
+		with open(self.FILENAME, 'r') as csvfile:
+
+			reader = csv.DictReader(csvfile)
+
+			for row in reader:
+
+				print(row + '\n')
+
+
+
+
+
+
+
+
+
+
 
 
