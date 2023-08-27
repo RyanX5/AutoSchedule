@@ -20,6 +20,8 @@ class Users:
 
         else:
             self.add_to_file(name, email, works)
+        
+
 
 
 
@@ -41,6 +43,8 @@ class Users:
                 csvwriter = csv.writer(file)
                 csvwriter.writerow(header)
                 csvwriter.writerow(data)
+                
+        print("User successfully added: " + name)
 
     def add_work(self, work):
         self.works.append(work)
@@ -50,28 +54,25 @@ class Users:
 	'''
     def delete_user(self, name):
         if not Jobs.user_exists(name, self.FILENAME):
-            return False
-		    
-        data = []
-        
-        with open(self.FILENAME, 'r') as file:
-            reader = csv.DictReader(file)
+            return "User doesn't exist: " + name
 
-            for row in reader:
-                if name != row['Name']:
-                    data.append(row)
+        else:    
+            data = []
+            
+            with open(self.FILENAME, 'r') as file:
+                reader = csv.DictReader(file)
 
-        header = ['Name', 'Email', 'Works']
+                for row in reader:
+                    if name != row['Name']:
+                        data.append(row)
 
-        if os.path.exists(self.FILENAME):
-            with open(self.FILENAME, 'a', newline="") as file:  
-                csvwriter = csv.writer(file)
-                csvwriter.writerows(data)
-        else:
-            with open(self.FILENAME, 'w',newline="") as file:
-                csvwriter = csv.writer(file)
-                csvwriter.writerow(header)
-                csvwriter.writerows(data)
+            with open(self.FILENAME, 'w') as file:
+                fieldnames = ["Name", "Email", "Works"]
+                writer = csv.DictWriter(file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(data)
+
+            return "User successfully removed: " + name
 
 
 
