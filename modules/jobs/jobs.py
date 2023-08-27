@@ -19,41 +19,62 @@ class Jobs:
 
 
 
+
+	def add_jobs(self, name, duration, frequency):
+
+		done = False
+
+		data = [name, duration, frequency]
+		if os.path.exists(self.FILENAME):
+
+			if not self.work_exists(name):
+
+				self.add_jobs_to_file(data[0], data[1], data[2])
+				done = True
+
+			else:
+
+				print("Work already exists")
+				self.list_jobs()
+
+		else:
+
+			self.add_jobs_to_file(data[0], data[1], data[2])
+			done = True
+
+		return done
+
+
 	'''
 		Adds jobs that can be assigned to users
 
 	'''
-	def add_jobs(self, name, duration, frequency):
-		if not self.work_exists:
+	def add_jobs_to_file(self, name, duration, frequency):
 
-			data = [
-				[name, duration, frequency]
-			]
+		data = [
+			[name, duration, frequency]
+		]
 
-			
+		
 
-			if not os.path.exists(self.FILENAME):
+		if not os.path.exists(self.FILENAME):
 
-				with open(self.FILENAME, 'w', newline='') as jobscsv:
-					csv_writer = csv.writer(jobscsv)
-					csv_writer.writerow(["Name", "Duration", "Frequency"])
-					csv_writer.writerows(data)
-					done = True
-
-			else:
-
-				with open(self.FILENAME, 'a', newline='') as jobscsv:
-					csv_writer = csv.writer(jobscsv)
-					csv_writer.writerows(data)
-					
-
-			
-			print("Successfully added job: " + name)
+			with open(self.FILENAME, 'w', newline='') as jobscsv:
+				csv_writer = csv.writer(jobscsv)
+				csv_writer.writerow(["Name", "Duration", "Frequency"])
+				csv_writer.writerows(data)
+				done = True
 
 		else:
 
-			print("Work already exists: " + name + '\n')
-			self.list_jobs()
+			with open(self.FILENAME, 'a', newline='') as jobscsv:
+				csv_writer = csv.writer(jobscsv)
+				csv_writer.writerows(data)
+				
+
+		
+		print("Successfully added job: " + name)
+
 
 
 
@@ -230,7 +251,7 @@ class Jobs:
 		# if yes, get its ['works']
 		# list it, remove the element
 		# stringify it, add it again
-		if self.work_exists():
+		if self.work_exists(name):
 			data = []
 			with open(self.FILENAME, 'r') as csvfile:
 				reader = csv.DictReader(csvfile)
@@ -249,6 +270,7 @@ class Jobs:
 				writer.writerows(data)
 
 			print("Successfully deleted job: " + name)
+			self.list_jobs()
 
 		else:
 
@@ -265,7 +287,7 @@ class Jobs:
 
 			for row in reader:
 
-				print(row + '\n')
+				print(row)
 
 
 
