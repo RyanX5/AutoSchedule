@@ -1,6 +1,7 @@
 import csv
 import os
 from ..jobs.jobs import Jobs
+import ast
 
 class Users:
 
@@ -13,7 +14,7 @@ class Users:
             self.add_to_file(name, email, works)
 
         else:
-            print("User already exists")
+            print("User already exists: " + name)
 
 
 
@@ -43,7 +44,7 @@ class Users:
 		Return True when the user is deleted and False if the user doesn't exist
 	'''
     def delete_user(self, name):
-        if not jobs.user_exists(name):
+        if not Jobs.user_exists(name, self.FILENAME):
             return False
 		    
         data = []
@@ -52,13 +53,13 @@ class Users:
             reader = csv.DictReader(file)
 
             for row in reader:
-                if name != reader['Name']:
+                if name != row['Name']:
                     data.append(row)
 
         header = ['Name', 'Email', 'Works']
 
         if os.path.exists(self.FILENAME):
-            with open(self.FILENAME_USERS, 'a', newline="") as file:  
+            with open(self.FILENAME, 'a', newline="") as file:  
                 csvwriter = csv.writer(file)
                 csvwriter.writerows(data)
         else:
