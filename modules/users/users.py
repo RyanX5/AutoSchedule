@@ -8,8 +8,13 @@ class Users:
         self.FILENAME = "./modules/users/users.csv"
 
     def add_user(self, name, email):
-        works = []
-        self.add_to_file(name, email, works)
+        if not jobs.user_exists(name, self.FILENAME):
+            works = []
+            self.add_to_file(name, email, works)
+
+        else:
+
+            print("User already exists")
 
 
 
