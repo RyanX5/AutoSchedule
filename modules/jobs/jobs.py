@@ -329,20 +329,28 @@ class Jobs:
 			print("Deleted work: " + name + " from " + names)
 
 
+	def swap_jobs(self, name):
+		#Display the jobs
+		users = []
+		with open(self.FILENAME_USERS, 'r') as file:
+			reader = csv.DictReader(file)
+
+			for row in reader:
+				user = row['Name']
+				if user == name:
+					print(row['Works'])
+				else:
+					users.append(user)
+
+		
+		#Select the job
+		swap_work = input("Which job do you want to swap: ")
+		
+		#Display the user and select the user
+		print(users)
+		user = input("Select the user you want to swap the job with: ")
 
 
-
-# "ROhan", "asdasd", "['Cooking', Laundry, Laundry]"
-# "ROhan", "asdasd", "['Cooking']"
-# "ROhaasdn", "asdasasdd", "['Cooking', Laundry]"
-
-
-
-
-
-
-
-
-
-
-
+		#Add the job to the selected user and delect from the original user
+		self.delete_work_from_user(swap_work)
+		self.assign_jobs(swap_work,user)
