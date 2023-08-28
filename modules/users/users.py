@@ -74,6 +74,18 @@ class Users:
 
             return "User successfully removed: " + name
 
+    def list_users(self):
+
+        print("\n\nLIST OF USERS: \n")
+
+        with open(self.FILENAME, 'r') as csvfile:
+
+            reader = csv.DictReader(csvfile)
+
+            for row in reader:
+
+                print(row)
+
 
 
 

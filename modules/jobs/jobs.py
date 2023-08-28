@@ -285,6 +285,8 @@ class Jobs:
 
 	def list_jobs(self):
 
+		print("\n\nLIST OF JOBS: \n")
+
 		with open(self.FILENAME, 'r') as csvfile:
 
 			reader = csv.DictReader(csvfile)
