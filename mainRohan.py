@@ -6,8 +6,6 @@ def main():
 	jobObj = jobs.Jobs()
 	userObj = users.Users()
 
-	# userObj.add_user("Rohan", "rohaniam777@gmail.com")
-
 	# if(jobObj.add_jobs("Cooking", "30 mins", "2")):
 	# 	print("Successfully added.")
 	# else:
@@ -16,7 +14,7 @@ def main():
 	# jobObj.assign_jobs("Laundry", "Rohan")
 	# jobObj.assign_jobs("Laundry", "Rohan")
 
-	jobObj.delete_jobs("Laundry")
+    jobObj.delete_jobs("Laundry")
 
 	# if(jobObj.add_jobs("Laundry", "30 mins", "2")):
 	# 	print("Successfully added.")
